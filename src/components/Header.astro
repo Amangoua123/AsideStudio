@@ -9,11 +9,11 @@ import logoWH from "../assets/logo/asideWH.svg";
   class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
 >
   <nav
-    class="mx-auto max-w-8xl px-6 py-4 grid grid-cols-3 items-center justify-between"
+    class="mx-auto max-w-8xl px-6 py-4 grid grid-cols-12 items-center justify-between"
   >
     <!-- Social icons -->
 
-    <div class="flex space-x-4">
+    <div class="flex space-x-4 col-span-2">
       <a
         href="https://github.com/yourname"
         aria-label="GitHub"
@@ -60,14 +60,14 @@ import logoWH from "../assets/logo/asideWH.svg";
     </div>
 
     <!-- Logo -->
-    <div class="">
-      <a href="/" class="text-xl font-bold">
-        <Image class="h-8" src={logoWH} alt="Logo" />
+    <div class="col-span-8">
+      <a href="/">
+        <Image class="h-8 md:h-12" src={logoWH} alt="Logo" />
       </a>
     </div>
 
     <!-- Menu -->
-    <div class="flex justify-end">
+    <div class="flex justify-end col-span-2">
       <a
         href="/"
         class="flex flex-col space-y-1 border h-12 w-12 justify-center items-center p-2 border-none rounded-full bg-white"

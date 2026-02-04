@@ -46,13 +46,20 @@ const { error } = Astro.props;
 <script>
   import gsap from "gsap";
 
+  const select = (element: any) => document.querySelector(element);
+
   document.addEventListener("DOMContentLoaded", () => {
-    const marquee = document.querySelector(".marquee");
-    const marqueeWidth = marquee?.offsetWidth / 2;
+    const marquee = select(".marquee");
+    const containerWidth = select(".marquee-container").offsetWidth;
+
+    // Duplicate the content for seamless looping
+    marquee.innerHTML += marquee.innerHTML;
+
+    const totalWidth = marquee.scrollWidth / 2;
 
     gsap.to(marquee, {
-      x: -marqueeWidth,
-      duration: 20,
+      x: -totalWidth,
+      duration: 30,
       repeat: -1,
       ease: "linear",
     });
