@@ -1,0 +1,1 @@
+import{g as o}from"./index.CB87Sc6I.js";const t=e=>document.querySelector(e);document.addEventListener("DOMContentLoaded",()=>{const e=t(".marquee");t(".marquee-container").offsetWidth,e.innerHTML+=e.innerHTML;const n=e.scrollWidth/2;o.to(e,{x:-n,duration:30,repeat:-1,ease:"linear"})});
