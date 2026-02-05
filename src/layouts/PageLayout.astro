@@ -24,21 +24,53 @@ import Footer from "../components/Footer.astro";
       href="https://unpkg.com/lenis@1.3.17/dist/lenis.css"
     />
   </head>
-  <body>
+  <body data-barba="wrapper">
     <Header />
     <slot />
     <Footer />
   </body>
-
-  <script>
-    // Initialize Lenis
-    import Lenis from "lenis";
-
-    const lenis = new Lenis({
-      autoRaf: true,
-    });
-
-    // Listen for the scroll event and log the event data
-    lenis.on("scroll", (e) => {});
-  </script>
 </html>
+
+<script>
+  // BARBAR INIT
+  import barba from "@barba/core";
+  import { sync } from "astro";
+  import { gsap } from "gsap";
+
+  // LENIS INIT
+  import Lenis from "lenis";
+
+  const lenis = new Lenis({
+    autoRaf: true,
+  });
+
+  // Listen for the scroll event and log the event data
+  lenis.on("scroll", (e) => {
+    console.log(e);
+  });
+
+  function delay(n) {
+    return new Promise((done) => {
+      setTimeout(() => {
+        done();
+      }, n);
+    });
+  }
+
+  // BARBAR INIT
+
+  barba.init({
+    sync: true,
+    views: [],
+    transitions: [
+      {
+        async leave(data) {
+          const done = this.async();
+          console.log(data.current);
+          await delay(500);
+          done();
+        },
+      },
+    ],
+  });
+</script>
