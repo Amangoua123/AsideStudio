@@ -5,18 +5,16 @@ import PageLayout from "../layouts/PageLayout.astro";
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<PageLayout client:load title="Home Page">
-  <!-- HERO SECTION -->
-  <section
-    class="hero min-h-screen flex flex-col justify-center items-center text-center bg-gray-500 text-white"
-  >
-    <h1 class="text-5xl mb-4">Welcome to Astro!</h1>
-    <p class="text-xl mb-8">Build fast, content-focused websites with Astro.</p>
-  </section>
+<PageLayout title="Home Page">
+  <main data-barba="container" data-barba-namespace="home">
+    <!-- HERO SECTION -->
 
-  <!-- ABOUT SECTION -->
-  <section class="about min-h-screen bg-black"></section>
+    <div class="min-h-screen w-screen bg-blue-500"></div>
 
-  <!-- PORTFOLIO SECTION -->
-  <section class="about min-h-screen bg-blue-300"></section>
+    <!-- ABOUT SECTION -->
+    <section class="about min-h-screen bg-black"></section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section class="about min-h-screen bg-blue-300"></section>
+  </main>
 </PageLayout>

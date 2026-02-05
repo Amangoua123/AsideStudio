@@ -2,6 +2,24 @@
 import { Image } from "astro:assets";
 import logoBL from "../assets/logo/asideBL.svg";
 import logoWH from "../assets/logo/asideWH.svg";
+
+// MAIN MENU
+
+const menu = [
+  { label: "About", href: "/about" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Archives", href: "/blog" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/contact" },
+];
+
+// SECOND MENU
+
+const menu2 = [
+  { label: "Terms et usages", href: "/about" },
+  { label: "Data & Policy", href: "/portfolio" },
+  { label: "Accessibility", href: "/portfolio" },
+];
 ---
 
 <header
@@ -9,7 +27,7 @@ import logoWH from "../assets/logo/asideWH.svg";
   class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
 >
   <nav
-    class="mx-auto max-w-8xl px-6 py-4 grid grid-cols-12 items-center justify-between"
+    class="fixed z-2 mx-auto max-w-8xl px-6 py-4 grid grid-cols-12 items-center justify-between"
   >
     <!-- Social icons -->
 
@@ -60,24 +78,163 @@ import logoWH from "../assets/logo/asideWH.svg";
     </div>
 
     <!-- Logo -->
-    <div class="col-span-8">
+    <div class="col-span-8 z-50">
       <a href="/">
         <Image class="h-10" src={logoWH} alt="Logo" />
       </a>
     </div>
 
-    <!-- Menu -->
-    <div class="flex justify-end col-span-2">
-      <a
-        href="/"
-        class="flex flex-col space-y-1 border h-12 w-12 justify-center items-center p-2 border-none rounded-full bg-white"
+    <div class="nav-toggle col-span-2 flex justify-end">
+      <div
+        class="nav-toggle-btn z-5 w-12 h-12 p-2 flex flex-col justify-center rounded-full cursor-pointer border-white border gap-2"
       >
-        <span class="w-5 bg-black h-px block"> </span>
-        <span class="w-5 bg-black h-px block"> </span>
-        <span class="w-5 bg-black h-px block"> </span>
-      </a>
+        <span class="bar-1 w-full h-px will-change-transform bg-white"></span>
+        <span class="bar-2 w-full h-px will-change-transform bg-white"></span>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <div
+      class="menu invisible fixed top-0 left-0 w-full h-svh pointer-none overflow-hidden z-1"
+    >
+      <div class="menu-bg absolute w-full h-full">
+        <div class="menu-bg-left left-0 absolute w-1/2 h-full overflow-hidden">
+          <div
+            class="menu-bg-left-inner bg-black origin-[100%_50%] -rotate-180 scale-[2] absolute w-full h-full will-change-transform"
+          >
+          </div>
+        </div>
+        <div
+          class="menu-bg-right right-0 absolute w-1/2 h-full overflow-hidden"
+        >
+          <div
+            class="menu-bg-right-inner bg-blue-500 origin-[0%_50%] rotate-180 scale-[2] absolute w-full h-full will-change-transform"
+          >
+          </div>
+        </div>
+      </div>
+      <div class="menu-items absolute w-full h-full flex">
+        <div
+          class="menu-items-col uppercase text-menu_1 leading-normal flex flex-1 justify-center items-start gap-4 flex-col p-8"
+        >
+          {
+            menu.map((item) => (
+              <div class="menu-link text-white">
+                <a href={item.href}>{item.label}</a>
+              </div>
+            ))
+          }
+        </div>
+        <div
+          class="menu-items-col text-menu_2 leading-normal flex-1 flex flex-col justify-center items-start gap-2 p-8"
+        >
+          {
+            menu2.map((menu) => (
+              <div class="menu-link">
+                <a href={menu.href}>{menu.label}</a>
+              </div>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </nav>
 </header>
 
-<style></style>
+<script>
+  import { gsap } from "gsap";
+  import { CustomEase } from "gsap/CustomEase";
+  import { SplitText } from "gsap/SplitText";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    gsap.registerPlugin(SplitText, CustomEase);
+
+    CustomEase.create("hop", "0.85, 0,0.15, 1");
+
+    const select = (element: any) => document.querySelector(element);
+    const selectAll = (element: any) => document.querySelectorAll(element);
+
+    const menu = select(".menu");
+    const menuToggle = select(".nav-toggle-btn");
+    let isMenuOpen = false;
+
+    // Split text
+
+    SplitText.create(".menu a, .menu p", {
+      type: "lines",
+      mask: "lines",
+      linesClass: "line",
+    });
+
+    const tl = gsap.timeline({ paused: true });
+    gsap.set(".menu", { autoAlpha: 1 });
+
+    menuToggle.addEventListener("click", function (e) {
+      if (isMenuOpen) {
+        tl.reverse();
+        menu.classList.remove("active");
+      } else {
+        tl.play();
+        menu.classList.add("active");
+      }
+      isMenuOpen = !isMenuOpen;
+    });
+
+    tl.to(".nav-toggle-btn .bar-1", {
+      y: 3.25,
+      rotation: 45,
+      scaleX: 0.75,
+      duration: 1,
+      ease: "hop",
+    })
+      .to(
+        ".nav-toggle-btn .bar-2",
+        {
+          y: -3.25,
+          rotation: -45,
+          scaleX: 0.75,
+          duration: 1,
+          ease: "hop",
+        },
+        0,
+      )
+      .to(
+        ".menu .menu-bg-left-inner",
+        {
+          rotate: 0,
+          duration: 1,
+          ease: "hop",
+        },
+        0,
+      )
+      .to(
+        ".menu .menu-bg-right-inner",
+        {
+          rotate: 0,
+          duration: 1,
+          ease: "hop",
+        },
+        0,
+      )
+      .to(
+        ".menu-items-col:nth-child(1) .line",
+        {
+          y: 0,
+          duration: 0.75,
+          ease: "power3.out",
+          stagger: 0.1,
+        },
+        0.6,
+      )
+      .to(
+        ".menu-items-col:nth-child(2) .line",
+        {
+          y: 0,
+          duration: 0.75,
+          ease: "power3.out",
+          stagger: 0.1,
+        },
+        "<",
+      );
+  });
+</script>
