@@ -12,26 +12,18 @@ const menu = [
   { label: "Services", href: "/services" },
   { label: "Contact", href: "/contact" },
 ];
-
-// SECOND MENU
-
-const menu2 = [
-  { label: "Terms et usages", href: "/about" },
-  { label: "Data & Policy", href: "/portfolio" },
-  { label: "Accessibility", href: "/portfolio" },
-];
 ---
 
 <header
-  id="site-header"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+  id="mashead"
+  class="fixed z-10 left-0 top-0 right-0 w-full mix-blend-difference overflow-hidden"
 >
   <nav
-    class="fixed z-2 mx-auto max-w-8xl px-6 py-4 grid grid-cols-12 items-center justify-between"
+    class="mx-auto max-w-8xl px-6 py-4 grid grid-cols-12 items-center overflow-hidden"
   >
     <!-- Social icons -->
 
-    <div class="flex space-x-4 col-span-2">
+    <div class="md:flex space-x-4 hidden md:col-span-2">
       <a
         href="https://github.com/yourname"
         aria-label="GitHub"
@@ -78,29 +70,30 @@ const menu2 = [
     </div>
 
     <!-- Logo -->
-    <div class="col-span-8 z-50">
-      <a href="/">
-        <Image class="h-10" src={logoWH} alt="Logo" />
+    <div class="md:col-span-8 col-span-10 flex z-30">
+      <a href="/" class="inline-block">
+        <Image class="h-10 md:h-10" src={logoWH} alt="Logo" />
       </a>
     </div>
 
     <div class="nav-toggle col-span-2 flex justify-end">
       <div
-        class="nav-toggle-btn z-5 w-12 h-12 p-2 flex flex-col justify-center rounded-full cursor-pointer border-white border gap-2"
+        class="nav-toggle-btn z-50 w-12 h-12 p-2 flex flex-col justify-center rounded-full cursor-pointer border-white border gap-2"
       >
         <span class="bar-1 w-full h-px will-change-transform bg-white"></span>
         <span class="bar-2 w-full h-px will-change-transform bg-white"></span>
       </div>
     </div>
-
     <!-- Menu -->
     <div
-      class="menu invisible fixed top-0 left-0 w-full h-svh pointer-none overflow-hidden z-1"
+      class="menu invisible fixed top-0 left-0 w-full h-svh pointer-none overflow-hidden"
     >
       <div class="menu-bg absolute w-full h-full">
-        <div class="menu-bg-left left-0 absolute w-1/2 h-full overflow-hidden">
+        <div
+          class="menu-bg-left left-0 absolute w-1/2 h-full overflow-hidden border-none box-border ouline-none"
+        >
           <div
-            class="menu-bg-left-inner bg-black origin-[100%_50%] -rotate-180 scale-[2] absolute w-full h-full will-change-transform"
+            class="menu-bg-left-inner bg-blue-500 origin-[100%_50%] -rotate-180 scale-[2] absolute w-full h-full will-change-transform"
           >
           </div>
         </div>
@@ -108,7 +101,7 @@ const menu2 = [
           class="menu-bg-right right-0 absolute w-1/2 h-full overflow-hidden"
         >
           <div
-            class="menu-bg-right-inner bg-blue-500 origin-[0%_50%] rotate-180 scale-[2] absolute w-full h-full will-change-transform"
+            class="menu-bg-right-inner bg-black origin-[0%_50%] rotate-180 scale-[2] absolute w-full h-full will-change-transform"
           >
           </div>
         </div>
@@ -121,17 +114,6 @@ const menu2 = [
             menu.map((item) => (
               <div class="menu-link text-white">
                 <a href={item.href}>{item.label}</a>
-              </div>
-            ))
-          }
-        </div>
-        <div
-          class="menu-items-col text-menu_2 leading-normal flex-1 flex flex-col justify-center items-start gap-2 p-8"
-        >
-          {
-            menu2.map((menu) => (
-              <div class="menu-link">
-                <a href={menu.href}>{menu.label}</a>
               </div>
             ))
           }
@@ -168,6 +150,7 @@ const menu2 = [
 
     const tl = gsap.timeline({ paused: true });
     gsap.set(".menu", { autoAlpha: 1 });
+    let scrollY = 0;
 
     menuToggle.addEventListener("click", function (e) {
       if (isMenuOpen) {
@@ -225,16 +208,6 @@ const menu2 = [
           stagger: 0.1,
         },
         0.6,
-      )
-      .to(
-        ".menu-items-col:nth-child(2) .line",
-        {
-          y: 0,
-          duration: 0.75,
-          ease: "power3.out",
-          stagger: 0.1,
-        },
-        "<",
       );
   });
 </script>

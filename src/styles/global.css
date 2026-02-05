@@ -53,6 +53,11 @@ body {
   --text-menu_1: clamp(3rem, 2.5vw, 2.5rem);
   --text-menu_2: clamp(1.75rem, 1.75vw, 1.5rem);
   --text--footer: -0.5rem;
+  --text-h2: clamp(1.85rem, 2.5vw, 2.85rem);
+  --text-btn: 0.85rem;
+
+  /* BACKGROUND */
+  --bg-white: #fff7f4;
 }
 
 /* MENU */
@@ -65,4 +70,12 @@ body {
   position: relative;
   transform: translateY(100%);
   will-change: transform;
+}
+
+.anim-text .line,
+.anim-text .line {
+  position: relative;
+  transform: translateY(100%) rotate(5deg);
+  will-change: transform;
+  transform-origin: left bottom;
 }

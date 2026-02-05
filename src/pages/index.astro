@@ -1,4 +1,5 @@
 ---
+import UnderLineBtn from "../components/UnderLineBtn.astro";
 import PageLayout from "../layouts/PageLayout.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -6,15 +7,63 @@ import PageLayout from "../layouts/PageLayout.astro";
 ---
 
 <PageLayout title="Home Page">
-  <main data-barba="container" data-barba-namespace="home">
-    <!-- HERO SECTION -->
+  <!-- HERO SECTION -->
 
-    <div class="min-h-screen w-screen bg-blue-500"></div>
+  <div class="w-full min-h-screen bg-black text-white"></div>
 
-    <!-- ABOUT SECTION -->
-    <section class="about min-h-screen bg-black"></section>
+  <!-- ABOUT SECTION -->
+  <section class="about md:py-40 py-20 bg-white">
+    <div class="h-full flex justify-center items-center">
+      <div class="max-w-255 mx-auto text-center">
+        <h3 class="anim-text mb-10 font-medium">ASIDE STUDIO</h3>
 
-    <!-- PORTFOLIO SECTION -->
-    <section class="about min-h-screen bg-blue-300"></section>
-  </main>
+        <h2 class="anim-text text-h2 font-normal leading-normal mb-12">
+          We build brands that scale as fast as the markets they enter. With
+          bold strategy and creative that sells, we help companies grow with
+          confidence.
+        </h2>
+
+        <h2 class="anim-text text-h2 font-normal leading-normal">
+          We partner with ambitious founders in beauty, wellness, food, beverage
+          & CPG to turn funding and momentum into brands that win shelves, scale
+          fast, and shape culture.
+        </h2>
+
+        <UnderLineBtn href="/services">view our services </UnderLineBtn>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section class="about bg-blue-300 min-h-screen"></section>
 </PageLayout>
+
+<script>
+  import { gsap } from "gsap";
+  import { CustomEase } from "gsap/CustomEase";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const split = SplitText.create(".anim-text", {
+    type: "lines",
+    mask: "lines",
+    linesClass: "line",
+  });
+
+  gsap.to(".anim-text .line", {
+    scrollTrigger: {
+      trigger: ".about",
+      start: "top 100%",
+      end: "bottom 50%",
+      toggleActions: "play none none none",
+      // scrub: 0.5,
+    },
+    y: 0,
+    rotate: 0,
+    ease: "power3.out",
+    stagger: 0.1,
+    duration: 0.75,
+  });
+</script>
